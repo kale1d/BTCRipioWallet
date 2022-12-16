@@ -13,6 +13,6 @@ export type WalletStackParamList = {
   MovementDetail: { id: string };
 };
 
-export type WalletStackStackNavigationProp<
+export type WalletStackNavigationProp<
   Route extends keyof WalletStackParamList,
 > = StackNavigationProp<WalletStackParamList, Route>;
