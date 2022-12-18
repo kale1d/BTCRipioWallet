@@ -7,7 +7,7 @@ import { ECurrency } from '../../types/currency.types';
 import { useNavigation } from '@react-navigation/native';
 import { WalletStackNavigationProp } from '../../navigation/navigation.types';
 
-export const HomeScreen = () => {
+export const HomeScreen: React.FC = () => {
   const { balance } = useRates();
   const navigation = useNavigation<WalletStackNavigationProp<'Home'>>();
 

@@ -40,9 +40,14 @@ export type ActionProps =
   | ActionSetFiatAmount
   | ActionSetBtcAmount;
 
+export type TFees = {
+  key: string;
+  amount: number;
+};
+
 export type TStoreState = {
   rates: RatesDTO;
-  fees: FeesDTO;
+  fees: TFees[];
   fiatAmount: number;
   btcAmount: number;
 };

@@ -11,11 +11,7 @@ export const INITIAL_RATES_STATE = {
   },
 };
 
-export const INITIAL_FEES_STATE = {
-  fastestFee: 0,
-  halfHourFee: 0,
-  hourFee: 0,
-};
+export const INITIAL_FEES_STATE = [];
 export const initialState: TStoreState = {
   rates: INITIAL_RATES_STATE,
   fees: INITIAL_FEES_STATE,
@@ -28,7 +24,14 @@ const setRates = (state: TStoreState, payload: RatesDTO) => {
 };
 
 const setFees = (state: TStoreState, payload: FeesDTO) => {
-  return { ...state, fees: payload };
+  let mappedData = [];
+  for (const key in payload) {
+    const obj = { key, amount: payload[key] };
+    console.log(obj);
+    mappedData.push(obj);
+  }
+  console.log({ mappedData });
+  return { ...state, fees: mappedData };
 };
 
 const setFiatAmount = (state: TStoreState, payload: number) => {
