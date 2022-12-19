@@ -2,22 +2,30 @@ import React, { useCallback, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { TFees } from '../../store/types';
 
-export const RadioButtonList: React.FC<{ data: TFees[] }> = ({ data }) => {
-  const [value, setValue] = useState('');
+export const RadioButtonList: React.FC<{
+  data: TFees[];
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ data, value, setValue }) => {
+  const [internalValue, setInternalValue] = useState('');
 
-  const handleOnPress = useCallback((res: TFees) => {
-    setValue(res.key);
-  }, []);
+  const handleOnPress = useCallback(
+    (res: TFees) => {
+      setValue(res.amount);
+      setInternalValue(res.key);
+    },
+    [setValue],
+  );
   return (
     <View>
       {data.map(res => {
         return (
           <View key={res.key} style={styles.container}>
-            <Text style={styles.radioText}>{res.amount}</Text>
+            <Text style={styles.radioText}>{res.key}</Text>
             <TouchableOpacity
               style={styles.radioCircle}
               onPress={() => handleOnPress(res)}>
-              {value === res.key && <View style={styles.selectedRb} />}
+              {internalValue === res.key && <View style={styles.selectedRb} />}
             </TouchableOpacity>
           </View>
         );
