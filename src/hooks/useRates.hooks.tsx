@@ -6,8 +6,8 @@ import { Types } from '../store/types';
 import { ECurrency, TCurrencyPairs } from '../types/currency.types';
 
 const INITIAL_STATE = {
-  [ECurrency.ARS]: { amount: 0, currencySymbol: '' },
-  [ECurrency.BTC]: { amount: 0, currencySymbol: '' },
+  [ECurrency.ARS]: { amount: 0, currencySymbol: '$' },
+  [ECurrency.BTC]: { amount: 0, currencySymbol: ECurrency.BTC },
 };
 export const useRates = () => {
   const [balance, setBalance] = useState<TCurrencyPairs>(INITIAL_STATE);

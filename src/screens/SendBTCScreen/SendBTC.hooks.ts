@@ -7,6 +7,7 @@ import { useStore } from '../../store';
 import { validateBTCAddress } from '../../utils/btc.regex';
 import { satToBtc } from '../../utils/satToBtc';
 import { Types } from '../../store/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { useRealm } = TransactionContext;
 
@@ -25,9 +26,10 @@ export const useSendBTC = () => {
   } = useStore();
   const disabled = !amountValue || !address;
 
-  const updateBTCAmount = useCallback(() => {
+  const updateBTCAmount = useCallback(async () => {
     const feeInBTC = satToBtc({ sats: feeValue });
     const amountUpdated = btcAmount - +amountValue - feeInBTC;
+    await AsyncStorage.setItem('btcAmount', amountUpdated.toString());
     dispatch({ type: Types.setBtcAmount, payload: amountUpdated });
   }, [amountValue, btcAmount, dispatch, feeValue]);
 
@@ -35,31 +37,31 @@ export const useSendBTC = () => {
     const isBTCAddressValid = validateBTCAddress(address);
     const isAmountValid = +amountValue <= btcAmount;
     const randomBool = Math.random() > 0.5;
+    // const randomBool = false;
     setError('');
-    if (randomBool) {
-      if (isBTCAddressValid && isAmountValid) {
-        //descontar saldo
-        updateBTCAmount();
-        realm.write(() =>
-          realm.create('Transaction', {
-            _id: new Realm.BSON.ObjectID(),
-            transactionId: new Realm.BSON.UUID().toHexString(),
-            date: new Date(),
-            status: randomBool,
-            address,
-            amount: +amountValue,
-          }),
+    realm.write(() =>
+      realm.create('Transaction', {
+        _id: new Realm.BSON.ObjectID(),
+        transactionId: new Realm.BSON.UUID().toHexString(),
+        date: new Date(),
+        status: randomBool,
+        address,
+        amount: +amountValue,
+      }),
+    );
+    const isValidOperation = randomBool && isBTCAddressValid && isAmountValid;
+    if (isValidOperation) {
+      updateBTCAmount();
+      return navigation.navigate('Loading', { isValid: randomBool });
+    } else {
+      if (!isBTCAddressValid) {
+        setError(
+          'La dirección de bitcoin ingresada es incorrecta, probá con otra',
         );
-        return navigation.navigate('Loading', { isValid: randomBool });
+      } else if (!isAmountValid) {
+        setError('El saldo ingresado es mayor al disponible');
       } else {
-        if (!isBTCAddressValid) {
-          setError(
-            'La dirección de bitcoin ingresada es incorrecta, probá con otra',
-          );
-        } else if (!isAmountValid) {
-          setError('El saldo ingresado es mayor al disponible');
-        }
-        //setError mostrando si la address es valida o si no alcanza el amount;
+        navigation.navigate('Loading', { isValid: randomBool });
       }
     }
   }, [

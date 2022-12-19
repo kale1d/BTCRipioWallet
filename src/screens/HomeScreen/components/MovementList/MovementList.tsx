@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { TransactionContext } from '../../../../database/realm';
-import { Transaction } from '../../../../database/schemas/transaction.schema';
 import { TransactionDTO } from '../../../../types/models.types';
 import ApprovedIcon from '../../../../assets/approvedIcon.svg';
 import ErrorIcon from '../../../../assets/errorIcon.svg';
@@ -16,11 +15,12 @@ import {
 } from '../../../../theme';
 import { useNavigation } from '@react-navigation/native';
 
-const { useQuery } = TransactionContext;
+const { useRealm } = TransactionContext;
 
 export const MovementList: React.FC = () => {
   const navigation = useNavigation<WalletStackNavigationProp<'Home'>>();
-  const data = useQuery(Transaction);
+  const realm = useRealm();
+  const data = realm.objects('Transaction').sorted('date', true);
 
   const renderItem = useCallback(
     ({ item }: { item: TransactionDTO }) => {
