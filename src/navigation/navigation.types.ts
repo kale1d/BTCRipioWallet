@@ -9,8 +9,8 @@ export type NestedNavigatorParams<ParamList> = {
 export type WalletStackParamList = {
   Home: undefined;
   SendBTC: undefined;
-  Loading: undefined;
-  MovementDetail: { id: string };
+  Loading: { isValid: boolean };
+  MovementDetail: { _id: Realm.BSON.ObjectId };
 };
 
 export type WalletStackNavigationProp<

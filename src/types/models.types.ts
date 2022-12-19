@@ -11,3 +11,11 @@ export type FeesDTO = {
   halfHourFee: number;
   hourFee: number;
 };
+
+export type TransactionDTO = {
+  _id: Realm.BSON.ObjectId;
+  date: Date;
+  status: boolean;
+  address: string;
+  amount: number;
+};

@@ -27,10 +27,8 @@ const setFees = (state: TStoreState, payload: FeesDTO) => {
   let mappedData = [];
   for (const key in payload) {
     const obj = { key, amount: payload[key] };
-    console.log(obj);
     mappedData.push(obj);
   }
-  console.log({ mappedData });
   return { ...state, fees: mappedData };
 };
 

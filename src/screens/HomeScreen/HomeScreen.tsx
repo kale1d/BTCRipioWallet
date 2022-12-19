@@ -6,6 +6,7 @@ import { useRates } from '../../hooks/useRates.hooks';
 import { ECurrency } from '../../types/currency.types';
 import { useNavigation } from '@react-navigation/native';
 import { WalletStackNavigationProp } from '../../navigation/navigation.types';
+import { MovementList } from './components/MovementList';
 
 export const HomeScreen: React.FC = () => {
   const { balance } = useRates();
@@ -30,6 +31,7 @@ export const HomeScreen: React.FC = () => {
           <Button title="Enviar" onPress={goToSend} />
         </View>
       )}
+      <MovementList />
     </Layout>
   );
 };

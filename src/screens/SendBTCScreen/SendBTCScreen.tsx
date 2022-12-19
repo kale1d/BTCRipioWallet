@@ -8,10 +8,14 @@ import { useNavigation } from '@react-navigation/native';
 import { WalletStackNavigationProp } from '../../navigation/navigation.types';
 import { RadioButtonList } from '../../components/RadioButtonList';
 import { useFees } from '../../hooks/useFees.hooks';
+import { TransactionContext } from '../../database/realm';
+
+const { useRealm } = TransactionContext;
 
 export const SendBTCScreen: React.FC = () => {
   const navigation = useNavigation<WalletStackNavigationProp<'SendBTC'>>();
   const { fees } = useFees();
+  const realm = useRealm();
 
   const [amountValue, setAmountValue] = useState('');
   const [address, setAddress] = useState('');
@@ -19,15 +23,28 @@ export const SendBTCScreen: React.FC = () => {
     state: { btcAmount },
   } = useStore();
   const disabled = !amountValue || !address;
+
   const handleOnConfirm = useCallback(() => {
     const isBTCAddressValid = validateBTCAddress(address);
     const isAmountValid = +amountValue <= btcAmount;
-
+    console.log(amountValue);
     if (isBTCAddressValid && isAmountValid) {
-      navigation.navigate('Loading');
+      realm.write(() =>
+        realm.create('Transaction', {
+          _id: new Realm.BSON.ObjectID(),
+          transactionId: new Realm.BSON.UUID().toHexString(),
+          date: new Date(),
+          status: true,
+          address,
+          amount: +amountValue,
+        }),
+      );
+      return navigation.navigate('Loading', { isValid: true });
     } else {
+      navigation.navigate('Loading', { isValid: false });
     }
-  }, [address, amountValue, btcAmount, navigation]);
+  }, [address, amountValue, btcAmount, navigation, realm]);
+
   return (
     <Layout navigationHeader>
       <Input

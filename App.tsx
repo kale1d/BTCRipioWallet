@@ -12,12 +12,17 @@ import React from 'react';
 
 import { Navigation } from './src/navigation';
 import { AppProvider } from './src/store/Store';
+// import TransactionContext from './src/database/realm';
+import { TransactionContext } from './src/database/realm';
 
+const { RealmProvider } = TransactionContext;
 const App = () => {
   return (
-    <AppProvider>
-      <Navigation />
-    </AppProvider>
+    <RealmProvider>
+      <AppProvider>
+        <Navigation />
+      </AppProvider>
+    </RealmProvider>
   );
 };
 

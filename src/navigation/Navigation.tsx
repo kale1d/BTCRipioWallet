@@ -1,6 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeScreen, LoadingScreen, SendBTCScreen } from '../screens';
+import {
+  HomeScreen,
+  LoadingScreen,
+  MovementDetailScreen,
+  SendBTCScreen,
+} from '../screens';
 import { WalletStackParamList } from './navigation.types';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -19,6 +24,7 @@ export const Navigation = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SendBTC" component={SendBTCScreen} />
         <Stack.Screen name="Loading" component={LoadingScreen} />
+        <Stack.Screen name="MovementDetail" component={MovementDetailScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
