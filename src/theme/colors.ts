@@ -5,4 +5,9 @@ export enum Colors {
   PURPLE_MOUNTAIN = '#A677B4',
   PASTEL_PINK = '#F6A9A5',
   BLACK = '#000',
+  WHITE = '#FFF',
+  DARKGRAY = '#909090',
+  DISABLED_PINK = '#e0c6c6',
+  SUCCESS = '#198754',
+  ERROR = '#DC3545',
 }

@@ -18,4 +18,5 @@ export type TransactionDTO = {
   status: boolean;
   address: string;
   amount: number;
+  transactionId: Realm.BSON.UUID;
 };

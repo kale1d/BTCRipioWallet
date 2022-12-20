@@ -5,6 +5,7 @@ import { TransactionContext } from '../../database/realm';
 import { Transaction } from '../../database/schemas/transaction.schema';
 import { Layout } from '../../components/Layout';
 import { WalletStackParamList } from '../../navigation/navigation.types';
+import { parsedDate } from '../../utils/date';
 
 const { useObject } = TransactionContext;
 
@@ -12,7 +13,7 @@ export const MovementDetailScreen: React.FC = () => {
   const route = useRoute<RouteProp<WalletStackParamList, 'MovementDetail'>>();
   const { _id } = route.params;
   const transaction = useObject(Transaction, _id);
-  const date = `${transaction?.date.getDate()}/${transaction?.date.getMonth()}/${transaction?.date.getFullYear()} - ${transaction?.date.getHours()}:${transaction?.date.getMinutes()} hs`;
+  const date = parsedDate({ date: transaction?.date });
   return (
     <Layout navigationHeader>
       <Text>{`Fecha: ${date}`}</Text>

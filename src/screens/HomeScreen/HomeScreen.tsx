@@ -7,6 +7,7 @@ import { ECurrency } from '../../types/currency.types';
 import { useNavigation } from '@react-navigation/native';
 import { WalletStackNavigationProp } from '../../navigation/navigation.types';
 import { MovementList } from './components/MovementList';
+import { styles } from './HomeScreen.styles';
 
 export const HomeScreen: React.FC = () => {
   const { balance } = useRates();
@@ -19,16 +20,23 @@ export const HomeScreen: React.FC = () => {
   return (
     <Layout>
       {balance && (
-        <View>
-          <Text>
-            {balance[ECurrency.BTC].amount}{' '}
-            {balance[ECurrency.BTC].currencySymbol}
-          </Text>
-          <Text>
-            {balance[ECurrency.ARS].currencySymbol}{' '}
-            {balance[ECurrency.ARS].amount}
-          </Text>
-          <Button title="Enviar" onPress={goToSend} />
+        <View style={styles.topContent}>
+          <View style={styles.balanceContainer}>
+            <Text style={[styles.title, styles.marginBottom]}>Tu saldo</Text>
+            <Text style={styles.title}>
+              {balance[ECurrency.BTC].amount}{' '}
+              <Text style={styles.subtitle}>
+                {balance[ECurrency.BTC].currencySymbol}
+              </Text>
+            </Text>
+            <Text style={styles.subtitle}>
+              {balance[ECurrency.ARS].currencySymbol}{' '}
+              <Text style={styles.subtitle}>
+                {balance[ECurrency.ARS].amount}
+              </Text>
+            </Text>
+          </View>
+          <Button style={styles.marginTop} title="Enviar" onPress={goToSend} />
         </View>
       )}
       <MovementList />

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button } from '../../components/Button';
-import { Input } from '../../components/Input/Input';
+import { Input } from '../../components/Input';
 import { Layout } from '../../components/Layout';
 import { RadioButtonList } from '../../components/RadioButtonList';
 import { useSendBTC } from './SendBTC.hooks';
+import { styles } from './SendBTCScreen.styles';
 
 export const SendBTCScreen: React.FC = () => {
   const {
@@ -22,23 +23,31 @@ export const SendBTCScreen: React.FC = () => {
 
   return (
     <Layout navigationHeader>
-      <Input
-        keyboardType="numeric"
-        value={amountValue}
-        onChangeText={setAmountValue}
-        placeholder="monto a enviar"
-      />
+      <View style={styles.inputContainer}>
+        <Input
+          keyboardType="numeric"
+          value={amountValue}
+          onChangeText={setAmountValue}
+          placeholder="monto a enviar"
+        />
 
-      <Input
-        value={address}
-        onChangeText={setAddress}
-        placeholder="dirección bitcoin"
-      />
-      {!!error && <Text>{error}</Text>}
+        <Input
+          value={address}
+          onChangeText={setAddress}
+          placeholder="dirección bitcoin"
+        />
+        {!!error && <Text>{error}</Text>}
+      </View>
+      <View style={styles.feesContainer}>
+        {fees.length ? (
+          <RadioButtonList
+            data={fees}
+            value={feeValue}
+            setValue={setFeeValue}
+          />
+        ) : null}
+      </View>
       <Button title="Enviar" onPress={handleOnConfirm} disabled={disabled} />
-      {fees.length ? (
-        <RadioButtonList data={fees} value={feeValue} setValue={setFeeValue} />
-      ) : null}
     </Layout>
   );
 };

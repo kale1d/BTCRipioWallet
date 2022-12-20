@@ -23,8 +23,12 @@ export const Navigation = () => {
         }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SendBTC" component={SendBTCScreen} />
-        <Stack.Screen name="Loading" component={LoadingScreen} />
         <Stack.Screen name="MovementDetail" component={MovementDetailScreen} />
+        <Stack.Screen
+          name="Loading"
+          component={LoadingScreen}
+          options={{ gestureEnabled: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

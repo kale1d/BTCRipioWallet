@@ -1,22 +1,18 @@
 import React from 'react';
 import {
-  StyleSheet,
   Pressable,
   PressableProps,
   View,
   StyleProp,
   ViewStyle,
-  Platform,
   ActivityIndicator,
   Text,
 } from 'react-native';
-
-import { Colors, Spacing } from './../../theme';
-import { normalizeHorizontal, normalizeVertical } from './../../theme';
+import { Colors } from './../../theme';
+import { styles } from './Button.styles';
 
 interface ButtonProps extends PressableProps {
   title: string;
-  color?: string;
   loading?: boolean;
 }
 
@@ -24,18 +20,18 @@ export const Button: React.FC<ButtonProps> = React.memo(
   ({ title, loading = false, ...props }) => {
     const disabled = props.disabled || loading;
     return (
-      <View style={{ width: '100%', alignItems: 'center' }}>
+      <View style={styles.container}>
         <Pressable
           {...props}
           disabled={disabled}
           style={({ pressed }) => [
-            {
-              backgroundColor: Colors.PASTEL_PINK,
-            },
             pressed && {
-              backgroundColor: Colors.CAMEO_PINK,
+              backgroundColor: Colors.KOBI,
             },
-            styles.actionButtonStyle,
+            disabled && {
+              backgroundColor: Colors.DISABLED_PINK,
+            },
+            styles.button,
             props.style && (props.style as StyleProp<ViewStyle>),
           ]}>
           {({ pressed }) => (
@@ -49,11 +45,12 @@ export const Button: React.FC<ButtonProps> = React.memo(
                       color: Colors.BLACK,
                     },
                     pressed && {
-                      color: '#FFF',
+                      color: Colors.WHITE,
                     },
                     disabled && {
-                      color: 'grey',
+                      color: Colors.DARKGRAY,
                     },
+                    styles.text,
                   ]}>
                   {title}
                 </Text>
@@ -65,25 +62,3 @@ export const Button: React.FC<ButtonProps> = React.memo(
     );
   },
 );
-
-const styles = StyleSheet.create({
-  actionButtonStyle: {
-    maxWidth: normalizeHorizontal(375),
-    width: '100%',
-    ...Platform.select({
-      ios: {
-        height: normalizeVertical(48),
-      },
-      android: {
-        height: normalizeVertical(55),
-      },
-    }),
-    borderRadius: normalizeVertical(55),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  flexDirectionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});

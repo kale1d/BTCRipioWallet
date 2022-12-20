@@ -1,5 +1,7 @@
 import React from 'react';
-import { TextInput, StyleSheet, TextInputProps } from 'react-native';
+import { TextInput, TextInputProps } from 'react-native';
+
+import { styles } from './Input.styles';
 
 interface IInputProps extends TextInputProps {
   onChangeText: (value: string) => void;
@@ -19,10 +21,3 @@ export const Input: React.FC<IInputProps> = ({
     />
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    borderWidth: 0,
-    height: 45,
-  },
-});
