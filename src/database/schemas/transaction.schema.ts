@@ -5,19 +5,9 @@ export class Transaction extends Realm.Object {
   date!: Date;
   status!: boolean;
   address!: string;
-  amount!: number;
+  amount!: string;
   transactionId!: string;
 
-  //   static generate(status: boolean, address: string, amount: number) {
-  //     console.log(status, address, amount);
-  //     return {
-  //       _id: { type: 'objectId', default: () => new Realm.BSON.ObjectId() },
-  //       date: { type: 'date', default: () => new Date() },
-  //       status,
-  //       address,
-  //       amount,
-  //     };
-  //   }
   static schema: Realm.ObjectSchema = {
     name: 'Transaction',
     properties: {
@@ -25,15 +15,9 @@ export class Transaction extends Realm.Object {
       date: { type: 'date', default: () => new Date() },
       status: 'bool',
       address: 'string',
-      amount: 'double',
+      amount: 'string',
       transactionId: 'string',
     },
     primaryKey: '_id',
   };
 }
-
-// - Fecha
-// - Monto enviado.
-// - Dirección de destino
-// - Estado de la operación (exitosa / no exitosa)
-// - ID de la operación.

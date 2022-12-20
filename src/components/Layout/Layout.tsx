@@ -1,9 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { PropsWithChildren, useCallback } from 'react';
-import { Pressable, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Colors, normalizeFont, Spacing } from '../../theme';
+import { Colors } from '../../theme';
 import ChevronLeft from './../../assets/chevronLeft.svg';
+import {
+  styles,
+  DEFAULT_HIT_SLOP,
+  NAVIGATION_ICON_HEIGHT,
+  NAVIGATION_ICON_WIDTH,
+} from './Layout.styles';
 
 type TLayout = PropsWithChildren & {
   navigationHeader?: boolean;
@@ -25,8 +31,7 @@ export const Layout: React.FC<TLayout> = ({
   }, [handleGoBack, navigation]);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: '#FAFAF4', marginHorizontal: 16 }}>
+    <SafeAreaView style={styles.container}>
       {navigationHeader && (
         <Pressable
           style={({ pressed }) => [
@@ -48,13 +53,3 @@ export const Layout: React.FC<TLayout> = ({
     </SafeAreaView>
   );
 };
-export const DEFAULT_HIT_SLOP = { top: 10, bottom: 10, left: 10, right: 10 };
-
-export const NAVIGATION_ICON_WIDTH = normalizeFont(10);
-export const NAVIGATION_ICON_HEIGHT = normalizeFont(14);
-const styles = StyleSheet.create({
-  navigationButton: {
-    marginVertical: Spacing.space16V,
-    marginRight: Spacing.space16H,
-  },
-});

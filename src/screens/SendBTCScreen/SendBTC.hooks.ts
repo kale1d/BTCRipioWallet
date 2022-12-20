@@ -36,8 +36,9 @@ export const useSendBTC = () => {
   const handleOnConfirm = useCallback(() => {
     const isBTCAddressValid = validateBTCAddress(address);
     const isAmountValid = +amountValue <= btcAmount;
+
+    // randomizes if the transaction is successful or not
     const randomBool = Math.random() > 0.5;
-    // const randomBool = false;
     setError('');
     realm.write(() =>
       realm.create('Transaction', {
@@ -46,7 +47,7 @@ export const useSendBTC = () => {
         date: new Date(),
         status: randomBool,
         address,
-        amount: +amountValue,
+        amount: amountValue,
       }),
     );
     const isValidOperation = randomBool && isBTCAddressValid && isAmountValid;

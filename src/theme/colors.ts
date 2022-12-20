@@ -10,4 +10,5 @@ export enum Colors {
   DISABLED_PINK = '#e0c6c6',
   SUCCESS = '#198754',
   ERROR = '#DC3545',
+  BACKGROUND_COLOR = 'FAFAF4',
 }

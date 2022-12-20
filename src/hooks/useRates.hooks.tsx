@@ -40,7 +40,6 @@ export const useRates = () => {
   }, [btcAmount, fiatAmount, getFiatAmount]);
 
   useEffect(() => {
-    //review  this
     getFiatAmount();
     if (btcAmount) {
       setBalance({
