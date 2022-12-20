@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     height: normalizeFont(15),
     width: normalizeFont(15),
     borderRadius: normalizeFont(40),
-    borderWidth: normalizeFont(1),
+    borderWidth: 1,
     borderColor: Colors.MIDDLE_PURPLE,
     alignItems: 'center',
     justifyContent: 'center',

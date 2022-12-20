@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Colors, normalizeFont } from '../../theme';
+import { Colors } from '../../theme';
 
 export const Separator: React.FC = () => {
   return <View style={styles.separator} />;
@@ -8,7 +8,7 @@ export const Separator: React.FC = () => {
 
 const styles = StyleSheet.create({
   separator: {
-    height: normalizeFont(1),
+    height: 1,
     backgroundColor: Colors.PURPLE_MOUNTAIN,
   },
 });
